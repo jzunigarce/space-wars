@@ -1,34 +1,44 @@
 const delay = 500
-let spaceImage
-let spaceShipImage
-let spaceSprite
-let spaceShipSprite
+let backgroundImage
+let backgroundSpace
+let spaceCraftImage
+let spaceCraft
 let time
 
-function preload() {
-	spaceImage = loadImage('images/sky.png')
-	spaceShipImage = loadImage('images/spaceship.gif')
+function preload () {
+	backgroundImage = loadImage('images/sky.png')
+	spaceCraftImage = loadImage('images/spaceship.gif')
 }
 
-function setup() {
+function setup () {
     createCanvas(windowWidth, windowHeight)
 	time = millis()
-    loadSprites()
+    load()
 }
 
-function draw() {
+function draw () {
     background('#fff')
-    spaceSprites.draw()
-	spaceShipSprite.draw()
-	if(delay + time < millis()) {
-		spaceShipSprite.next()
-		time = millis()
-	}
+    backgroundSpace.draw()
+	spaceCraft.draw()
+
+	if(keyIsDown(LEFT_ARROW))
+		spaceCraft.move(SpaceCraftRender.LEFT)
+
+	if(keyIsDown(RIGHT_ARROW))
+		spaceCraft.move(SpaceCraftRender.RIGHT)
 }
 
-const loadSprites = function() {
-    spaceSprites = new SpaceSprites(spaceImage)
-    spaceSprites.create()
-	spaceShipSprite = new SpaceCraftSprite(spaceShipImage)
-	spaceShipSprite.create()
+function keyPressed () {
+	spaceCraft.shooting()
+}
+
+function keyReleased () {
+	spaceCraft.moveDirection(SpaceCraftRender.FRONT)
+}
+
+const load = function() {
+    backgroundSpace = new BackgroundRender(backgroundImage)
+    backgroundSpace.create()
+	spaceCraft = new SpaceCraftRender()
+	spaceCraft.create(spaceCraftImage)
 }

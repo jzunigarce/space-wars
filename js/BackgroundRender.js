@@ -1,4 +1,4 @@
-class SpaceSprites {
+class BackgroundRender {
     constructor (image) {
         this.image = image
         this.w = 300
