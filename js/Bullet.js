@@ -20,4 +20,8 @@ class Bullet {
     isOut (height) {
         return this.y >= height || this.y + this.h <= 0
     }
+
+    move () {
+        this.y += (this.speed * this.direction)
+    }
 }

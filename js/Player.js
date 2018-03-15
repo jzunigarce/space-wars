@@ -1,21 +1,9 @@
-class SpaceCraftRender {
-
-    static get LEFT () {
-        return 0
-    }
-
-    static get FRONT () {
-        return 1
-    }
-
-    static get RIGHT () {
-        return 2
-    }
+class Player {
 
     constructor () {
         this.sprites = []
         this.bullets = new BulletRender()
-        this.spriteDirection = SpaceCraftRender.FRONT
+        this.spriteDirection = Sprite.FRONT
     }
 
     create (image) {
@@ -31,18 +19,28 @@ class SpaceCraftRender {
     }
 
     draw () {
-        image(this.spaceCraft.image, this.spaceCraft.x, this.spaceCraft.y,
+        try {
+            image(this.spaceCraft.image, this.spaceCraft.x, this.spaceCraft.y,
                 this.spaceCraft.w, this.spaceCraft.h,
                 this.sprites[this.spriteDirection].x, this.sprites[this.spriteDirection].y,
                 this.sprites[this.spriteDirection].w, this.sprites[this.spriteDirection].h)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    drawBullets () {
         this.bullets.draw()
+    }
+
+    moveBullets () {
         this.bullets.move()
     }
 
     move (direction) {
-        if(direction === SpaceCraftRender.LEFT)
+        if(direction === Sprite.LEFT)
             this.spaceCraft.move(SpaceCraft.LEFT)
-        else if(direction === SpaceCraftRender.RIGHT)
+        else if(direction === Sprite.RIGHT)
             this.spaceCraft.move(SpaceCraft.RIGHT)
         this.moveDirection(direction)
     }

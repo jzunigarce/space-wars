@@ -1,4 +1,4 @@
-class BackgroundRender {
+class Background {
     constructor (image) {
         this.image = image
         this.w = 300

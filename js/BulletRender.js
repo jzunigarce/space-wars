@@ -8,6 +8,7 @@ class BulletRender {
     }
 
     draw () {
+        console.log(this.bullets.length)
         this.bullets.forEach(function(bullet) {
             stroke(bullet.type)
             line(bullet.x, bullet.y,bullet.x,bullet.y + (bullet.h * bullet.direction))
@@ -15,14 +16,14 @@ class BulletRender {
     }
 
     move () {
-        let i = 0
-        while(i < this.bullets.length) {
-            this.bullets[i].y += (this.bullets[i].speed * this.bullets[i].direction)
+        this.bullets.forEach(function(bullet, index, array) {
+            bullet.move()
+            if(bullet.isOut(height))
+                array.splice(index, 1)
+        })
+    }
 
-            if(this.bullets[i].isOut(height))
-                this.bullets.splice(i, 1)
-            else
-                i++
-        }
+    collide () {
+
     }
 }

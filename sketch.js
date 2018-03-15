@@ -1,13 +1,13 @@
 const delay = 500
 let backgroundImage
 let backgroundSpace
-let spaceCraftImage
-let spaceCraft
+let playerImage
+let player
 let time
 
 function preload () {
 	backgroundImage = loadImage('images/sky.png')
-	spaceCraftImage = loadImage('images/spaceship.gif')
+	playerImage = loadImage('images/spaceship.gif')
 }
 
 function setup () {
@@ -19,26 +19,29 @@ function setup () {
 function draw () {
     background('#fff')
     backgroundSpace.draw()
-	spaceCraft.draw()
+	player.draw()
+	player.drawBullets()
 
 	if(keyIsDown(LEFT_ARROW))
-		spaceCraft.move(SpaceCraftRender.LEFT)
-
+		player.move(Sprite.LEFT)
 	if(keyIsDown(RIGHT_ARROW))
-		spaceCraft.move(SpaceCraftRender.RIGHT)
+		player.move(Sprite.RIGHT)
+
+	player.moveBullets()
 }
 
 function keyPressed () {
-	spaceCraft.shooting()
+	if(keyCode === 32)
+		player.shooting()
 }
 
 function keyReleased () {
-	spaceCraft.moveDirection(SpaceCraftRender.FRONT)
+	player.moveDirection(Sprite.FRONT)
 }
 
 const load = function() {
-    backgroundSpace = new BackgroundRender(backgroundImage)
+    backgroundSpace = new Background(backgroundImage)
     backgroundSpace.create()
-	spaceCraft = new SpaceCraftRender()
-	spaceCraft.create(spaceCraftImage)
+	player = new Player()
+	player.create(playerImage)
 }
