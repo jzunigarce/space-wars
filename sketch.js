@@ -1,34 +1,41 @@
-const delay = 500
-let spaceImage
-let spaceShipImage
-let spaceSprite
-let spaceShipSprite
-let time
+let bg
+let entities
 
 function preload() {
-	spaceImage = loadImage('images/sky.png')
-	spaceShipImage = loadImage('images/spaceship.gif')
+	bg = loadImage('images/sky.png')
 }
 
 function setup() {
     createCanvas(windowWidth, windowHeight)
-	time = millis()
-    loadSprites()
+	entities = []
+	initGame()
 }
 
 function draw() {
-    background('#fff')
-    spaceSprites.draw()
-	spaceShipSprite.draw()
-	if(delay + time < millis()) {
-		spaceShipSprite.next()
-		time = millis()
-	}
+	background('#ffffff')
+	entities.forEach((entity) => {
+		entity.move()
+	})
+
+	entities.forEach((entity) => {
+		entity.draw()
+	})
+
 }
 
-const loadSprites = function() {
-    spaceSprites = new SpaceSprites(spaceImage)
-    spaceSprites.create()
-	spaceShipSprite = new SpaceCraftSprite(spaceShipImage)
-	spaceShipSprite.create()
+const createBg = function () {
+	let side = 300
+	let columns = width / side
+	let rows = height / side + 2
+
+	for(let i = 0; i < rows; i++)
+		for(let j = 0; j < columns; j++) {
+			let bgEntity = new BackgroundEntity(bg, j * side, i * side, side, side)
+			bgEntity.speedY = 2
+			entities.push(bgEntity)
+		}
+}
+
+const initGame = function () {
+	createBg()
 }
