@@ -1,5 +1,5 @@
 class Entity {
-    constructor (image, x, y, w, h) {
+    constructor (image, x, y, w, h, crop=undefined) {
         this.sprite = new Sprite(image)
         this.x = x
         this.y = y
@@ -7,6 +7,7 @@ class Entity {
         this.h = h
         this.dx = 0
         this.dy = 0
+        this.crop = crop
     }
 
     set speedX (dx) {
@@ -31,7 +32,7 @@ class Entity {
     }
 
     draw () {
-        this.sprite.draw(this.x, this.y, this.w, this.h)
+        this.sprite.draw(this.x, this.y, this.w, this.h, this.crop)
     }
 
 }
