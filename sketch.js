@@ -3,11 +3,13 @@ let shipImg
 let entities
 let ship
 let sprite
+let laser
 
 function preload () {
 	bg = loadImage('images/sky.png')
 	shipImg = loadImage('images/spaceship.gif')
 	sprite = loadImage('images/spaceshipsprites.gif')
+	laser = loadSound('sounds/scifi002.mp3')
 }
 
 function setup () {
@@ -92,9 +94,10 @@ function keyPressed () {
 	if(keyCode === RIGHT_ARROW)
 		ship.moveDirection(ShipEntity.RIGHT)
 
-	if(keyCode === 32)
+	if(keyCode === 32) {
 		shoothing(BulletEntity.UP)
-
+		laser.play()
+	}
 }
 
 function keyReleased () {
